@@ -33,3 +33,6 @@ enableCodeCopy = true
   showTableOfContents = false
   showSummary = true
   groupByYear = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
