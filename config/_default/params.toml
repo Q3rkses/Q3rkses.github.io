@@ -1,0 +1,35 @@
+# Options: autumn, avocado, bloody, blowfish, congo, fire, forest, github, marvel, neon, ocean, sapphire, slate, terminal
+colorScheme = "congo"    # or "terminal" for hacker vibes, "ocean" for clean blue
+
+# Dark mode behavior
+defaultAppearance = "dark"   # "light" or "dark"
+autoSwitchAppearance = true  # follows system preference
+
+# Enable search
+enableSearch = true
+
+# Show code copy button
+enableCodeCopy = true
+
+# Homepage layout: page, profile, hero, card, background, custom
+[homepage]
+  layout = "profile"
+  showRecent = true
+  recentLimit = 5
+
+[article]
+  showDate = true
+  showAuthor = true
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true
+  showWordCount = false
+  showEdit = false
+  showViews = false
+  showLikes = false
+  showSummary = true
+
+[list]
+  showTableOfContents = false
+  showSummary = true
+  groupByYear = true

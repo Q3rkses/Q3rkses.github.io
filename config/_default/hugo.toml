@@ -1,0 +1,22 @@
+baseURL = "https://q3rkses.github.io/"
+languageCode = "en"
+title = "Q3rkses"
+theme = "blowfish"
+
+enableRobotsTXT = true
+summaryLength = 0
+buildDrafts = false
+buildFuture = false
+enableEmoji = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[sitemap]
+  changeFreq = "daily"
+  priority = 0.5
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"

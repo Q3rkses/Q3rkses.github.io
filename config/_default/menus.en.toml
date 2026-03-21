@@ -1,0 +1,25 @@
+[[main]]
+  name = "Posts"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "Projects"
+  pageRef = "projects"
+  weight = 20
+
+[[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 30
+
+[[main]]
+  name = "Thesis Work"
+  pageRef = "thesis"
+  weight = 40
+
+[[main]]
+  pre = "search"
+  name = "Search"
+  url = "/search"
+  weight = 50
