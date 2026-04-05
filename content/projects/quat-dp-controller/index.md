@@ -99,7 +99,7 @@ $$J_e(\eta) = \begin{bmatrix} R(q_b^n) & 0 \\ 0 & T_e(q_e) \end{bmatrix} \in \ma
 
 $J_e$ is smooth, differentiable, and **invertible for $|\delta\theta| < 180°$** — exactly what backstepping needs.
 
-> We chose $\delta q = q_d^* \otimes q$ (left multiplication by conjugate) rather than $q \otimes q_d^*$, because local perturbations expressed in the body frame are more intuitive.
+> We chose $\delta q = q_d^* \otimes q$ (left multiplication by conjugate) rather than $q \otimes q_d^*$, because local perturbations expressed in the body frame are more intuitive for control purposes.
 
 ---
 
