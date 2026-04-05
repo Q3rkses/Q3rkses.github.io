@@ -25,7 +25,7 @@ Follows the unconstrained weighted least-squares formulation from Fossen (2021, 
 $$
 J = \min_{f_e} \; f_e^\top W_f f_e
 \qquad \text{s.t.} \qquad
-\tau - T f = 0
+\tau - T_e f_e = 0
 $$
 
 Solving yields the **generalized pseudoinverse** (Fossen Eq. 11.35):
@@ -48,11 +48,10 @@ Formulated as a quadratic program following Fossen (2021, Eq. 11.38). The origin
 The implemented formulation drops the load-balancing term:
 
 $$
-J = \min_{f_e,\, s} \; \left( f_e^\top W_f f_e + s^\top Q s \right)
-$$
-
-$$
-\text{s.t.} \quad T_e f_e = \tau + s, \qquad f_{\min} \le f_e \le f_{\max}
+\begin{aligned}
+J &= \min_{f_e,\, s} \; \left( f_e^\top W_f f_e + s^\top Q s \right) \\
+&\text{s.t.} \quad T_e f_e = \tau + s, \qquad f_{\min} \le f_e \le f_{\max}
+\end{aligned}
 $$
 
 This retains thrust limits and soft constraint handling via the slack vector $s$ while avoiding unnecessary force redistribution.
