@@ -1,5 +1,5 @@
 ---
-title: "Thrust Allocator — Vortex NTNU"
+title: "Thrust Allocator for a 6DOF AUV"
 date: 2026-03-21
 draft: false
 summary: "Constrained and pseudoinverse thrust allocation for Vortex NTNU's AUV, based on Fossen's formulations."

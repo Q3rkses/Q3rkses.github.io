@@ -1,5 +1,5 @@
 ---
-title: "Adaptive Backstepping DP Controller — Quaternion Formulation"
+title: "Adaptive Backstepping DP Controller using Quaternions for attitude"
 date: 2026-04-05
 draft: false
 summary: "Adaptive backstepping controller for dynamic positioning of an AUV, using a quaternion error-state formulation to avoid gimbal lock."

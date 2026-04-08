@@ -1,5 +1,5 @@
 ---
-title: "Neovim config — Personal use"
+title: "Neovim config for personal use"
 date: 2026-01-01
 draft: false
 summary: "Neovim config based on Astrovim Distro, with some modifications, and some vibecoding functionality i use in day to day coding"

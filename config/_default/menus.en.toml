@@ -1,16 +1,16 @@
 [[main]]
-  name = "Posts"
-  pageRef = "posts"
-  weight = 10
-
-[[main]]
   name = "Projects"
   pageRef = "projects"
-  weight = 20
+  weight = 10
 
 [[main]]
   name = "About"
   pageRef = "about"
+  weight = 20
+
+[[main]]
+  name = "Coursework"
+  pageRef = "coursework"
   weight = 30
 
 [[main]]
