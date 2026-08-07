@@ -8,13 +8,13 @@ tags: ["MATLAB", "Simulink", "control-systems", "LQR", "Kalman-filter", "MPC", "
 
 {{< katex >}}
 
-Both courses use the same physical rig — two rotors, three encoders, one IMU, bolted to a table. TTK4115 focuses on stabilization and state estimation; TTK4135 on computing and tracking optimal trajectories. The plant is a coupled 3-DOF system with travel $\lambda$, pitch $p$, and elevation $e$ as states. All designs are based on linearized models around hover.
+Both courses use the same physical rig: two rotors, three encoders, one IMU, bolted to a table. TTK4115 focuses on stabilization and state estimation; TTK4135 on computing and tracking optimal trajectories. The plant is a coupled 3-DOF system with travel $\lambda$, pitch $p$, and elevation $e$ as states. All designs are based on linearized models around hover.
 
-## TTK4115 — Linear System Theory (2024)
+## TTK4115: Linear System Theory (2024)
 
 Four labs, each building on the previous.
 
-### Part 1 — Monovariable PD (Pole Placement)
+### Part 1: Monovariable PD (Pole Placement)
 
 The first lab isolated the travel axis. In the linearized model, travel acceleration is proportional to pitch angle:
 
@@ -24,7 +24,7 @@ $$
 
 A PD controller was used to drive the travel error to zero, with pitch as the effective input. The gains were computed analytically: specify two desired closed-loop poles, expand the characteristic polynomial, match coefficients. The transfer function from pitch setpoint to travel gives a second-order closed-loop system, so placing both poles determines $K_p$ and $K_d$ uniquely.
 
-### Part 2 — Multivariable LQR
+### Part 2: Multivariable LQR
 
 The second lab replaced the single-axis PD with a full-state LQR covering travel, pitch, and elevation simultaneously. The LQR minimizes:
 
@@ -42,7 +42,7 @@ The matrices $Q$ and $R$ are design parameters. $Q$ penalizes state error meanin
 
 We ran experiments at both extremes. High $Q$, low $R$: tracking was tight and the step responses looked good, but the inputs were saturating frequently and the rig vibrated noticeably. Low $Q$, high $R$: the rig barely responded to reference changes, taking several seconds to reach setpoints. Final tuning balanced both tracking setpoints cleanly within a reasonable time without saturating the actuators. The coupling between axes that was visible in Part 1 was now handled directly by the multivariable structure.
 
-### Part 3 — Luenberger Observer
+### Part 3: Luenberger Observer
 
 The rig does not give full state measurements. The IMU provides angular velocity directly; angles (pitch, elevation) come from encoders, which are noisy at low speeds; travel rate is differentiated from encoder counts. Feeding these raw signals directly into the LQR produces noisy control inputs that cause motor chatter.
 
@@ -56,7 +56,7 @@ The observer gain $L$ is chosen to place the observer poles faster than the cont
 
 The key design decision is which states to include in the observer model. If the observer state vector is smaller than the actual plant state, for example omitting a coupling term, then the innovation term $L(y - C\hat{x})$ is trying to correct an incomplete model. The estimation error grows unbounded because the missing dynamics can't be compensated by a fixed gain. This showed up clearly in the experimental data: a minimal state observer had estimation error growing to order $10^3$, while the full-state observer tracked the true states cleanly.
 
-### Part 4 — Kalman Filter
+### Part 4: Kalman Filter
 
 The Luenberger observer uses a fixed gain $L$ designed for nominal conditions. It works well in steady-state but doesn't adapt when noise levels change. The **Kalman filter** replaces the fixed gain with one that is optimal given the current noise covariances.
 
@@ -74,11 +74,11 @@ The Kalman gain $K$ is recomputed (or precomputed offline for a time-invariant s
 
 Under larger disturbances where the model diverged from reality, the Kalman filter consistently outperformed the Luenberger observer, and the adaptive weighting absorbed disturbances the fixed-gain observer amplified into the control signal. The state estimates were smoother, and the resulting control inputs were less noisy.
 
-## TTK4135 — Optimization & Control (2025)
+## TTK4135: Optimization & Control (2025)
 
 Same rig, different objective. Rather than stabilizing around a fixed setpoint, the goal is to find an **optimal input sequence** that drives the helicopter from one configuration to another while minimizing a cost, subject to actuator constraints. The four labs increase in complexity from a pure open-loop QP to a nonlinear constrained problem.
 
-### Part 1 — Open-Loop QP
+### Part 1: Open-Loop QP
 
 The objective is to find the input sequence $\mathbf{u} = [u_0, \ldots, u_{N-1}]^\top$ that minimizes a quadratic cost over a finite horizon while respecting actuator limits:
 
@@ -96,9 +96,9 @@ and substituting into the quadratic cost in $x$ and $u$, the result is a standar
 
 The cost weight $q$ (on state deviation) was varied across three values: $q = 0.12$, $1.2$, $12$. Low $q$ penalizes state error lightly. The optimizer in turn finds a slow, fuel-efficient trajectory that reaches the target gradually. High $q$ penalizes deviation heavily and the trajectory reaches the target quickly but demands much larger inputs. The actuator constraints were active (hit the bound) in the high-$q$ case, showing that the optimizer was pushing as hard as physically allowed.
 
-![Optimal trajectory with q=12 — fast and aggressive](ttk4135-qp-120.png)
+![Optimal trajectory with q=12, fast and aggressive](ttk4135-qp-120.png)
 
-### Part 2 — LQR Feedback on Optimal Trajectory
+### Part 2: LQR Feedback on Optimal Trajectory
 
 An open-loop trajectory computed offline is fragile. Any disturbance or model mismatch causes the real system to deviate from the planned path, and the open-loop sequence has no mechanism to correct it and errors accumulate over the horizon.
 
@@ -116,7 +116,7 @@ The LQR gain $K$ is computed on the same linearized model as the trajectory. The
 ![LQR tracking states during final test run](ttk4135-lqr-states.png)
 <!-- Extract from Helicopter_Lab_Report.pdf, page 12, Figure 8: Simulink scope captures of LQR states during the final testing round -->
 
-### Part 3 — MPC Formulation
+### Part 3: MPC Formulation
 
 Model Predictive Control generalizes the approach from Part 2 by solving the optimization problem **online at every timestep**, using the current measured state as the initial condition. The horizon shifts forward by one step each time and only the first control input is applied, then the problem is re-solved with fresh measurements.
 
@@ -130,7 +130,7 @@ The key advantage over the open-loop + LQR structure is that MPC re-plans at eve
 
 The computational cost scales with horizon length $N$: longer horizons give better performance and stability margins but require solving a larger QP. For this lab, the solver ran comfortably within the 10ms sample interval across all tested horizon lengths.
 
-### Part 4 — Nonlinear SQP with Elevation Constraint
+### Part 4: Nonlinear SQP with Elevation Constraint
 
 The final lab adds a hard constraint: the helicopter's elevation $e(t)$ must remain above a threshold $e_{\min}$ for all $t$ in the maneuver. This represents terrain avoidance or a clearance requirement:
 
@@ -143,4 +143,4 @@ Since $e_k$ is a nonlinear function of the inputs through the plant dynamics, th
 SQP works by linearizing the constraints at the current iterate and solving the resulting local QP to get a search direction, then taking a step along that direction (with a line search) and repeating. It converges to a local minimum satisfying the KKT conditions. For this problem, with a single inequality constraint on elevation, convergence was consistent and the resulting trajectory arced over the elevation floor rather than cutting through. the optimizer found that the least-cost path respecting the constraint was to climb, complete the travel maneuver at altitude, then descend.
 
 ![SQP optimal trajectory with nonlinear elevation constraint](ttk4135-sqp.png)
-<!-- Extract from Helicopter_Lab_Report.pdf, page 18, Figure 11: 5-panel fmincon/SQP optimal trajectory clearly showing the elevation constraint being respected — the helicopter arcs over the floor -->
+<!-- Extract from Helicopter_Lab_Report.pdf, page 18, Figure 11: 5-panel fmincon/SQP optimal trajectory clearly showing the elevation constraint being respected, the helicopter arcs over the floor -->

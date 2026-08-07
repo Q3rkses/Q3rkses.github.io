@@ -43,7 +43,7 @@ $$
 
 ### Constrained QP Allocator
 
-Formulated as a quadratic program following Fossen (2021, Eq. 11.38). The original formulation includes a load-balancing parameter $\bar{f}$, but for our use case different maneuvers require some thrusters to work hard while others rest — so load balancing does more harm than good.
+Formulated as a quadratic program following Fossen (2021, Eq. 11.38). The original formulation includes a load-balancing parameter $\bar{f}$, but for our use case different maneuvers require some thrusters to work hard while others rest, so load balancing does more harm than good.
 
 The implemented formulation drops the load-balancing term:
 
@@ -62,12 +62,12 @@ This retains thrust limits and soft constraint handling via the slack vector $s$
 
 All formulations follow the notation of Fossen (2021), Ch. 11:
 
-- $\tau \in \mathbb{R}^n$ — desired generalized force
-- $T_e$ — extended thruster configuration matrix
-- $f_e$ — extended force vector
-- $W_f \succeq 0$ — weighting matrix on the extended force vector
-- $Q \succeq 0$ — weighting matrix on the slack vector $s$
-- $f_{\min}, f_{\max}$ — lower and upper bounds on $f_e$
+- $\tau \in \mathbb{R}^n$: desired generalized force
+- $T_e$: extended thruster configuration matrix
+- $f_e$: extended force vector
+- $W_f \succeq 0$: weighting matrix on the extended force vector
+- $Q \succeq 0$: weighting matrix on the slack vector $s$
+- $f_{\min}, f_{\max}$: lower and upper bounds on $f_e$
 
 ---
 
@@ -75,7 +75,7 @@ All formulations follow the notation of Fossen (2021), Ch. 11:
 
 The thrust allocation formulations are based on:
 
-> **Thor I. Fossen**, *Handbook of Marine Craft Hydrodynamics and Motion Control*, 2nd Edition, Wiley, 2021 — Chapter 11.
+> **Thor I. Fossen**, *Handbook of Marine Craft Hydrodynamics and Motion Control*, 2nd Edition, Wiley, 2021, Chapter 11.
 
 ---
 

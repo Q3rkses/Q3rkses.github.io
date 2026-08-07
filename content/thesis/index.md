@@ -14,14 +14,14 @@ showReadingTime: false
 </pre>
 
 <p style="text-align: center; opacity: 0.6; font-style: italic; margin-top: -0.5em;">
-Work in progress — just like the thesis itself.
+Work in progress, just like the thesis itself.
 </p>
 
 ---
 
 ## Master's Thesis
 
-**Programme:** Control Engineering & Cybernetics — Integrated Master's at ITK NTNU Trondheim
+**Programme:** Control Engineering & Cybernetics, Integrated Master's at ITK NTNU Trondheim
 
 ---
 

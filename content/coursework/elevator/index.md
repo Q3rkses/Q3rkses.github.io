@@ -8,7 +8,7 @@ tags: ["C", "Python", "embedded-systems", "machine-learning"]
 
 {{< katex >}}
 
-## TTK4235 — Embedded Systems (2024)
+## TTK4235: Embedded Systems (2024)
 
 **Single elevator controller in C**
 
@@ -40,7 +40,7 @@ The queue uses sentinels; both head and tail, which in turn simplify edge-case h
 
 The full design was documented in UML before implementation as part of the learning outcome of the course. Class diagrams for module interfaces (Queue, Motor, Buttons, SensorData, ButtonHandler, Door), state diagrams for the elevator lifecycle, and sequence diagrams for key scenarios including door obstruction and power loss mid-travel.
 
-## TTT4275 — Estimation, Detection & Classification (2025)
+## TTT4275: Estimation, Detection & Classification (2025)
 
 **Linear classifiers and nearest-neighbor methods from scratch in Python**
 
@@ -67,26 +67,26 @@ Step length $\alpha$ had to be tuned carefully. We swept from $10^{-4}$ to $10^{
 ![MSE vs. iterations for different step lengths](ttk4275-mse-convergence.png)
 <!-- Extract from TTT4275_rapport.pdf, page 8, Figure 4: MSE vs iterations plot for several α values, showing the trade-off between convergence speed and stability -->
 
-![Iris scatter plot matrix — all 4 features, 3 classes](ttk4275-iris-scatter.png)
+![Iris scatter plot matrix, all 4 features, 3 classes](ttk4275-iris-scatter.png)
 <!-- Extract from TTT4275_rapport.pdf, page 7, Figure 3: scatter plot matrix of all pairwise feature combinations for the 3 Iris classes, illustrating the Versicolor/Virginica overlap -->
 
-**Results:** 93–97% accuracy on the test set depending on train/test split. Setosa was classified perfectly in every run — it is linearly separable from the other two in almost any feature pair. Versicolor and Virginica overlap significantly in all four features; the confusion matrices show that almost all misclassifications happen on that boundary. A linear classifier cannot fully separate them regardless of how well it is trained.
+**Results:** 93–97% accuracy on the test set depending on train/test split. Setosa was classified perfectly in every run; it is linearly separable from the other two in almost any feature pair. Versicolor and Virginica overlap significantly in all four features; the confusion matrices show that almost all misclassifications happen on that boundary. A linear classifier cannot fully separate them regardless of how well it is trained.
 
 ### KNN + K-Means on MNIST
 
-**1-NN** classification on 28×28 flattened images: for each test image, compute Euclidean distance to all 60,000 training images and assign the label of the nearest neighbor. This achieved **96.9% accuracy** on the MNIST test set with no learned representation — raw pixel distance carries a surprising amount of class information for digit images.
+**1-NN** classification on 28×28 flattened images: for each test image, compute Euclidean distance to all 60,000 training images and assign the label of the nearest neighbor. This achieved **96.9% accuracy** on the MNIST test set with no learned representation: raw pixel distance carries a surprising amount of class information for digit images.
 
-The cost is quadratic in training set size at inference: 60,000 distance computations per query. To make this tractable, the training set was compressed using **K-means clustering** — each class's examples are replaced by $K$ cluster centroids:
+The cost is quadratic in training set size at inference: 60,000 distance computations per query. To make this tractable, the training set was compressed using **K-means clustering:** each class's examples are replaced by $K$ cluster centroids:
 
 $$
 \mu_k = \frac{1}{|C_k|} \sum_{x \in C_k} x
 $$
 
-Centroids were initialized with K-means++ (choosing each new center proportional to its squared distance from the nearest existing center) rather than random initialization, which improved cluster quality and convergence speed. The final centroids are visually interpretable: at $K = 64$, each digit class has 64 prototype images that together span the variation in writing style for that digit — thick strokes, thin strokes, different slants.
+Centroids were initialized with K-means++ (choosing each new center proportional to its squared distance from the nearest existing center) rather than random initialization, which improved cluster quality and convergence speed. The final centroids are visually interpretable: at $K = 64$, each digit class has 64 prototype images that together span the variation in writing style for that digit: thick strokes, thin strokes, different slants.
 
-With $K = 64$ centroids per class (640 total prototypes vs. 60,000 training images), accuracy dropped to **94.2%** — a 2.7 percentage point loss in exchange for a **240× speedup** at inference. The accuracy-vs-$K$ curve had a clear structure: below $K = 32$, centroids were too coarse to represent within-class variation and accuracy dropped sharply; above $K = 128$, additional centroids added marginal improvement at increasing memory cost.
+With $K = 64$ centroids per class (640 total prototypes vs. 60,000 training images), accuracy dropped to **94.2%:** a 2.7 percentage point loss in exchange for a **240× speedup** at inference. The accuracy-vs-$K$ curve had a clear structure: below $K = 32$, centroids were too coarse to represent within-class variation and accuracy dropped sharply; above $K = 128$, additional centroids added marginal improvement at increasing memory cost.
 
-The most confused digit pair was 9 and 4, consistent across all $K$ values and classifier variants. Visually, ambiguous 9s have a closed loop with a vertical stroke that closely resembles certain 4 styles — the confusion is in the pixel geometry, not in the classifier.
+The most confused digit pair was 9 and 4, consistent across all $K$ values and classifier variants. Visually, ambiguous 9s have a closed loop with a vertical stroke that closely resembles certain 4 styles; the confusion is in the pixel geometry, not in the classifier.
 
 ![Sample correctly and incorrectly classified MNIST digits](ttk4275-mnist-samples.png)
 

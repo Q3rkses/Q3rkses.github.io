@@ -34,13 +34,13 @@ an (accidental) sudo Pacman -Syu.
 
 ## Tech I Work With
 
-- **Languages** — C, C++, Python, Lua, MATLAB
-- **Robotics** — ROS2, CasADi, OpenCV
-- **Editor** — Neovim (AstroVim + lazy.nvim)
-- **OS** — Arch Linux (when it's alive), Ubuntu (when it's not), Yes i dislike the current state of Windows
+- **Languages:** C, C++, Python, Lua, MATLAB
+- **Robotics:** ROS2, CasADi, OpenCV
+- **Editor:** Neovim (AstroVim + lazy.nvim)
+- **OS:** Arch Linux (when it's alive), Ubuntu (when it's not), Yes i dislike the current state of Windows
 
 ---
 
 ## Contact
 
-Feel free to reach out via GitHub or LinkedIn — links are on the homepage.
+Feel free to reach out via GitHub or LinkedIn. Links are on the homepage.
