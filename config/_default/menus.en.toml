@@ -14,17 +14,14 @@
   weight = 20
 
 [[main]]
-  name = "Coursework"
-  pageRef = "coursework"
-  weight = 30
-
-[[main]]
-  name = "Thesis Work"
-  pageRef = "thesis"
-  weight = 40
-
-[[main]]
   pre = "search"
   name = "Search"
   url = "/search"
   weight = 50
+
+# Coursework and Thesis Work live in the full page index rather than the top bar,
+# to keep the navigation lean.
+[[footer]]
+  name = "All Pages"
+  pageRef = "all"
+  weight = 10
