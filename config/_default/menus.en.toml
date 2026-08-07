@@ -19,9 +19,5 @@
   url = "/search"
   weight = 50
 
-# Coursework and Thesis Work live in the full page index rather than the top bar,
-# to keep the navigation lean.
-[[footer]]
-  name = "All Pages"
-  pageRef = "all"
-  weight = 10
+# Coursework and Thesis Work are reachable from the A-to-Z index on the search
+# page rather than the top bar, to keep the navigation lean.

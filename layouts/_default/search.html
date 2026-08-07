@@ -1,0 +1,47 @@
+{{/* The search page: the site-wide search box plus a full A-to-Z index of every
+     page, so the tab works for browsing as well as for searching. The list is
+     generated from the content tree and never needs updating by hand.
+
+     Several pages deliberately set an empty title (their ASCII banner acts as the
+     heading), so fall back to the URL segment for those. */}}
+
+{{ define "main" }}
+  <article class="max-w-full">
+    <section class="max-w-full prose dark:prose-invert">
+      {{ .Content }}
+    </section>
+
+    {{/* Collect sections and regular pages into one flat list, then sort it. */}}
+    {{ $entries := slice }}
+    {{ range .Site.Pages }}
+      {{ if and (in (slice "page" "section") .Kind) (ne .Path $.Path) }}
+        {{ $title := cond (ne .Title "") .Title (path.Base .Path | humanize | title) }}
+        {{ $entries = $entries | append (dict
+             "title" $title
+             "url" .RelPermalink
+             "section" (cond (eq .Section "") "" (.Section | humanize | title))
+             "date" .Date
+             "isSection" (eq .Kind "section")) }}
+      {{ end }}
+    {{ end }}
+
+    <section class="max-w-full mt-10 prose dark:prose-invert">
+      <h2 class="!mb-1">All pages</h2>
+      <p class="!mt-0 text-sm text-neutral-500 dark:text-neutral-400">
+        Everything on this site, A to Z.
+      </p>
+      <ul class="!mt-4">
+        {{ range sort $entries "title" }}
+          <li>
+            <a href="{{ .url }}">{{ .title | emojify }}</a>
+            {{ if .isSection }}
+              <span class="text-sm text-neutral-500 dark:text-neutral-400">&middot; section</span>
+            {{ else if .section }}
+              <span class="text-sm text-neutral-500 dark:text-neutral-400">&middot; {{ .section }}</span>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+  </article>
+{{ end }}
