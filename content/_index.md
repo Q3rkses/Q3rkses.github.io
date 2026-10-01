@@ -26,6 +26,7 @@ When I'm not studying, I'm configuring [Neovim](https://neovim.io/), contributin
 
 ### Currently Working On
 
+- 📡 **[Master's Pre-Project](/thesis/):** Building a Kalman filtering and smoothing library from scratch in C++, working up from a 1D random walk to a strapdown INS with multi-sensor fusion.
 - 🔧 **Vortex Control Stack:** Bringing this years drone into the stonefish simulator, Tuning the controllers for desired performance and QoL upgrades to the repo in general.
 - ⚙️ **Neovim Config:** AstroVim-based setup with some modifications to plugins and keybinds
 - 🌐 **This Site:** You're looking at it
